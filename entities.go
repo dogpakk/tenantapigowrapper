@@ -39,6 +39,11 @@ type TransactionCommon struct {
 	JournalEntry primitive.ObjectID `json:"journalEntry"`
 }
 
+type NonTransactionCommon struct {
+	EntityCommon
+	Inactive bool `json:"inactive"`
+}
+
 type InvoiceableCommon struct {
 	InvoicedAt         time.Time       `json:"invoicedAt"`
 	PaymentDueAt       time.Time       `json:"paymentDueAt"`
@@ -66,12 +71,12 @@ type Order struct {
 	//PaymentMethod   PaymentMethod      `json:"paymentMethod"`
 	PaypalOrderID string `json:"paypalOrderId"`
 	//Payments        CustomerPayments   `json:"payments"`
-	//ShippingMethod  ShippingMethod     `json:"shippingMethod"`
-	PromoCode string `json:"promoCode"`
+	ShippingMethod ShippingMethod `json:"shippingMethod"`
+	PromoCode      string         `json:"promoCode"`
 	//DiscountLines   []DiscountLine     `json:"discountLines"`
 	Source          string             `json:"source"`
 	SourceWebsiteID primitive.ObjectID `json:"sourceWebsiteId"`
-	//OrderLines      OrderLines         `json:"orderLines"`
+	OrderLines      []OrderLine        `json:"orderLines"`
 	ShippingAddress Address            `json:"shippingAddress"`
 	BillingAddress  Address            `json:"billingAddress"`
 	CustomerNotes   string             `json:"customerNotes"`
@@ -119,6 +124,11 @@ type Address struct {
 	CourierInstructions string `json:"courierInstructions"`
 }
 
+type ShippingMethod struct {
+	TransactionCommon
+	Name string `json:"name"`
+}
+
 type CartAndOrderTotals struct {
 	UnitsAndWeight
 
@@ -154,4 +164,46 @@ type UnitsAndWeight struct {
 	NoOfUnits int     `json:"noOfUnits"`
 	NoOfItems int     `json:"noOfItems"`
 	Weight    float64 `json:"weight"`
+}
+
+type OrderLine struct {
+	ProductLogistics
+
+	ProductID     primitive.ObjectID `json:"productId"`
+	Sku           string             `json:"sku"`
+	Name          string             `json:"name"`
+	Memo          string             `json:"memo"`
+	Price         financial.Cents    `json:"price"`
+	WeightKg      float64            `json:"weightKg"`
+	TaxCodeID     primitive.ObjectID `json:"taxCodeId"`
+	TaxCode       string             `json:"taxCode"`
+	TaxPercentage float64            `json:"taxPercentage"`
+	TaxAmount     financial.Cents    `json:"taxAmount"`
+	IncTaxPrice   financial.Cents    `json:"incTaxPrice"`
+	Quantity      int                `json:"quantity"`
+
+	LineExTaxAmount  financial.Cents `json:"lineExTaxAmount"`
+	LineTaxAmount    financial.Cents `json:"lineTaxAmount"`
+	LineIncTaxAmount financial.Cents `json:"lineIncTaxAmount"`
+	LineWeightKg     float64         `json:"lineWeightKg"`
+
+	// for lot commitment
+	LotID              primitive.ObjectID `json:"lotId"`
+	QtyMoved           int                `json:"qtyDispatched"`
+	QtyLeftToMove      int                `json:"qtyLeftToDispatch"`
+	StockTreatment     `bson:"inline"`
+	AlreadyTransformed bool               `json:"alreadyTransformed"`
+	TransformedFrom    primitive.ObjectID `json:"transformedFrom"`
+}
+
+type ProductLogistics struct {
+	UnitsPerCase    int `json:"unitsPerCase"`
+	CasesPerLayer   int `json:"casesPerLayer"`
+	LayersPerPallet int `json:"layersPerPallet"`
+}
+
+type StockTreatment struct {
+	NotStocked    bool `json:"notStocked"`
+	NotDispatched bool `json:"notDispatched"`
+	IsComposite   bool `json:"isComposite"`
 }
