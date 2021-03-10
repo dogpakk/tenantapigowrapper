@@ -80,6 +80,7 @@ type Order struct {
 	ShippingAddress Address            `json:"shippingAddress"`
 	BillingAddress  Address            `json:"billingAddress"`
 	CustomerNotes   string             `json:"customerNotes"`
+	DispatchNotes   string             `json:"dispatchNotes"`
 	Totals          CartAndOrderTotals `json:"orderTotals"`
 	//Fulfillments    StockMovements     `json:"fulfillments"`
 	//Status          OrderStatus        `json:"status"`
