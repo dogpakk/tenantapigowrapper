@@ -126,7 +126,8 @@ type Address struct {
 
 type ShippingMethod struct {
 	TransactionCommon
-	Name string `json:"name"`
+	Name                string `json:"name"`
+	ExternalServiceCode string `json:"externalServiceCode"`
 }
 
 type CartAndOrderTotals struct {
