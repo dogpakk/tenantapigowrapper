@@ -13,6 +13,7 @@ const (
 
 type APISingleEntity interface {
 	getEntitySingleName() string
+	getID() primitive.ObjectID
 }
 
 type APIListEntity interface {
@@ -61,6 +62,10 @@ func (orders Orders) getEntityListName() string {
 
 func (order Order) getEntitySingleName() string {
 	return entityOrder
+}
+
+func (order Order) getID() primitive.ObjectID {
+	return order.ID
 }
 
 type Order struct {

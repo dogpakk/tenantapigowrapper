@@ -72,3 +72,31 @@ func (c Client) GetEntityList(listEntity APIListEntity, listState mongolist.List
 
 	return nil
 }
+
+func (c Client) UpdateEntity(entity APISingleEntity, body []byte) error {
+	endpoint := c.getSingleEndpoint(entity.getEntitySingleName(), entity.getID())
+
+	req, err := http.NewRequest("PATCH", endpoint, bytes.NewBuffer(body))
+	if err != nil {
+		return err
+	}
+
+	req.Header.Set("Content-Type", "application/json")
+	req.Header.Set("Authorization", fmt.Sprintf("Bearer %s", c.APISecret))
+
+	// Set client timeout
+	client := &http.Client{Timeout: time.Second * 10}
+
+	// Send request
+	resp, err := client.Do(req)
+	if err != nil {
+		return err
+	}
+	defer resp.Body.Close()
+
+	if err := json.NewDecoder(resp.Body).Decode(entity); err != nil {
+		return err
+	}
+
+	return nil
+}
