@@ -23,6 +23,7 @@ type APIListEntity interface {
 
 type EntityCommon struct {
 	ID                primitive.ObjectID `json:"_id"`
+	BrandID           primitive.ObjectID `json:"brandId"`
 	CreatedAt         time.Time          `json:"createdAt"`
 	ModifiedAt        time.Time          `json:"modifiedAt"`
 	StatusDescription []string           `json:"statusDescription"`
