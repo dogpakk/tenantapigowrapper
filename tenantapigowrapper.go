@@ -3,6 +3,7 @@ package tenantapigowrapper
 import (
 	"bytes"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"net/http"
 	"time"
@@ -93,6 +94,10 @@ func (c Client) UpdateEntity(entity APISingleEntity, body []byte) error {
 		return err
 	}
 	defer resp.Body.Close()
+
+	if resp.StatusCode != http.StatusOK {
+		return errors.New("received Non-OK response from Pakk")
+	}
 
 	if err := json.NewDecoder(resp.Body).Decode(entity); err != nil {
 		return err
