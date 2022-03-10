@@ -3,7 +3,7 @@ package tenantapigowrapper
 import (
 	"time"
 
-	"github.com/dogpakk/lib/financial"
+	"github.com/dogpakk/pakk/services/lib/financial"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 

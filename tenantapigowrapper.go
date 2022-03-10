@@ -8,7 +8,7 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/dogpakk/lib/mongolist"
+	"github.com/dogpakk/pakk/services/lib/mongolist"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
