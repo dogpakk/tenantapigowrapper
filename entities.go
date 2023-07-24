@@ -140,29 +140,29 @@ type CartAndOrderTotals struct {
 	UnitsAndWeight
 
 	// Subtotals
-	SubtotalExTax  financial.Cents `json:"subtotalExTax"`
-	SubtotalTax    financial.Cents `json:"subtotalTax"`
-	SubtotalIncTax financial.Cents `json:"subtotalIncTax"`
+	SubtotalExTax  int64 `json:"subtotalExTax"`
+	SubtotalTax    int64 `json:"subtotalTax"`
+	SubtotalIncTax int64 `json:"subtotalIncTax"`
 
 	// Shipping
-	ShippingExTax  financial.Cents `json:"shippingExTax"`
-	ShippingTax    financial.Cents `json:"shippingTax"`
-	ShippingIncTax financial.Cents `json:"shippingIncTax"`
+	ShippingExTax  int64 `json:"shippingExTax"`
+	ShippingTax    int64 `json:"shippingTax"`
+	ShippingIncTax int64 `json:"shippingIncTax"`
 
 	// Discounts
-	DiscountsExTax  financial.Cents `json:"discountsExTax"`
-	DiscountsTax    financial.Cents `json:"discountsTax"`
-	DiscountsIncTax financial.Cents `json:"discountsIncTax"`
+	DiscountsExTax  int64 `json:"discountsExTax"`
+	DiscountsTax    int64 `json:"discountsTax"`
+	DiscountsIncTax int64 `json:"discountsIncTax"`
 
 	// Payment surcharge
-	PaymentMethodSurchargeExTax  financial.Cents `json:"paymentMethodSurchargeExTax"`
-	PaymentMethodSurchargeTax    financial.Cents `json:"paymentMethodSurchargeTax"`
-	PaymentMethodSurchargeIncTax financial.Cents `json:"paymentMethodSurchargeIncTax"`
+	PaymentMethodSurchargeExTax  int64 `json:"paymentMethodSurchargeExTax"`
+	PaymentMethodSurchargeTax    int64 `json:"paymentMethodSurchargeTax"`
+	PaymentMethodSurchargeIncTax int64 `json:"paymentMethodSurchargeIncTax"`
 
 	// Totals
-	TotalExTax  financial.Cents `json:"totalExTax"`
-	TotalTax    financial.Cents `json:"totalTax"`
-	TotalIncTax financial.Cents `json:"totalIncTax"`
+	TotalExTax  int64 `json:"totalExTax"`
+	TotalTax    int64 `json:"totalTax"`
+	TotalIncTax int64 `json:"totalIncTax"`
 
 	HaveCalculatedPaymentMethodSurcharge bool `json:"haveCalculatedPaymentMethodSurcharge"`
 }
@@ -180,19 +180,19 @@ type OrderLine struct {
 	Sku           string             `json:"sku"`
 	Name          string             `json:"name"`
 	Memo          string             `json:"memo"`
-	Price         financial.Cents    `json:"price"`
+	Price         int64              `json:"price"`
 	WeightKg      float64            `json:"weightKg"`
 	TaxCodeID     primitive.ObjectID `json:"taxCodeId"`
 	TaxCode       string             `json:"taxCode"`
 	TaxPercentage float64            `json:"taxPercentage"`
-	TaxAmount     financial.Cents    `json:"taxAmount"`
-	IncTaxPrice   financial.Cents    `json:"incTaxPrice"`
+	TaxAmount     int64              `json:"taxAmount"`
+	IncTaxPrice   int64              `json:"incTaxPrice"`
 	Quantity      int                `json:"quantity"`
 
-	LineExTaxAmount  financial.Cents `json:"lineExTaxAmount"`
-	LineTaxAmount    financial.Cents `json:"lineTaxAmount"`
-	LineIncTaxAmount financial.Cents `json:"lineIncTaxAmount"`
-	LineWeightKg     float64         `json:"lineWeightKg"`
+	LineExTaxAmount  int64   `json:"lineExTaxAmount"`
+	LineTaxAmount    int64   `json:"lineTaxAmount"`
+	LineIncTaxAmount int64   `json:"lineIncTaxAmount"`
+	LineWeightKg     float64 `json:"lineWeightKg"`
 
 	// for lot commitment
 	LotID              primitive.ObjectID `json:"lotId"`
