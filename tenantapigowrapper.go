@@ -7,7 +7,6 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/dogpakk/pakk/services/lib/mongolist"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
@@ -40,7 +39,7 @@ func (c Client) getCreateEndpoint(entityName string) string {
 	return c.getEndpoint(fmt.Sprintf(endpointCreate, entityName))
 }
 
-func (c Client) GetEntityList(listEntity APIListEntity, listState mongolist.ListState) error {
+func (c Client) GetEntityList(listEntity APIListEntity, listState ListSpec) error {
 	listStateBytes, err := json.Marshal(listState)
 	if err != nil {
 		return err

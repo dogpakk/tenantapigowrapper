@@ -3,7 +3,6 @@ package tenantapigowrapper
 import (
 	"time"
 
-	"github.com/dogpakk/pakk/services/lib/financial"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
@@ -47,10 +46,10 @@ type NonTransactionCommon struct {
 }
 
 type InvoiceableCommon struct {
-	InvoicedAt         time.Time       `json:"invoicedAt"`
-	PaymentDueAt       time.Time       `json:"paymentDueAt"`
-	OverdueDays        int             `json:"overdueDays"`
-	OutstandingBalance financial.Cents `json:"outstandingBalance"`
+	InvoicedAt         time.Time `json:"invoicedAt"`
+	PaymentDueAt       time.Time `json:"paymentDueAt"`
+	OverdueDays        int       `json:"overdueDays"`
+	OutstandingBalance int64     `json:"outstandingBalance"`
 }
 
 func (orders Orders) getEntitySingleName() string {
