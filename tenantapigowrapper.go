@@ -3,7 +3,6 @@ package tenantapigowrapper
 import (
 	"bytes"
 	"encoding/json"
-	"errors"
 	"fmt"
 	"net/http"
 	"time"
@@ -96,7 +95,11 @@ func (c Client) UpdateEntity(entity APISingleEntity, body []byte) error {
 	defer resp.Body.Close()
 
 	if resp.StatusCode != http.StatusOK {
-		return errors.New("received Non-OK response from Pakk")
+		// Read body to a string
+		buf := new(bytes.Buffer)
+		buf.ReadFrom(resp.Body)
+		bodyStr := buf.String()
+		return fmt.Errorf("Pakk API Response Code: %s; Body: %s", resp.Status, bodyStr)
 	}
 
 	if err := json.NewDecoder(resp.Body).Decode(entity); err != nil {
@@ -104,4 +107,20 @@ func (c Client) UpdateEntity(entity APISingleEntity, body []byte) error {
 	}
 
 	return nil
+}
+
+type ListSpec struct {
+	Filters          []Filter `json:"filters"`
+	FilterCombineOr  bool     `json:"filterCombineOr"`
+	Order            string   `json:"order"`
+	OrderDescending  bool     `json:"orderDescending"`
+	Limit            int      `json:"limit"`
+	Offset           int      `json:"offset"`
+	IncludeInactives bool     `json:"includeInactives"`
+}
+
+type Filter struct {
+	Field    string      `json:"field"`
+	Operator string      `json:"operator"`
+	Value    interface{} `json:"value"`
 }
