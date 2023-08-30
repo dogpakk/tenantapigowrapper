@@ -109,13 +109,18 @@ func (c Client) UpdateEntity(entity APISingleEntity, body []byte) error {
 }
 
 type ListSpec struct {
-	Filters          []Filter `json:"filters"`
-	FilterCombineOr  bool     `json:"filterCombineOr"`
-	Order            string   `json:"order"`
-	OrderDescending  bool     `json:"orderDescending"`
-	Limit            int      `json:"limit"`
-	Offset           int      `json:"offset"`
-	IncludeInactives bool     `json:"includeInactives"`
+	Filters          []Filter    `json:"filters"`
+	FilterSets       []FilterSet `json:"filterSets"`
+	Order            string      `json:"order"`
+	OrderDescending  bool        `json:"orderDescending"`
+	Limit            int         `json:"limit"`
+	Offset           int         `json:"offset"`
+	IncludeInactives bool        `json:"includeInactives"`
+}
+
+type FilterSet struct {
+	Filters         []Filter `json:"filters"`
+	FilterCombineOr bool     `json:"filterCombineOr"`
 }
 
 type Filter struct {
