@@ -81,7 +81,7 @@ func (c Client) UpdateEntity(entity APISingleEntity, body []byte) error {
 	}
 
 	req.Header.Set("Content-Type", "application/json")
-	req.Header.Set("Authorization", fmt.Sprintf("Bearer %s", c.APIKey))
+	req.Header.Set("Authorization", fmt.Sprintf("%s", c.APIKey))
 
 	// Set client timeout
 	client := &http.Client{Timeout: time.Second * 10}
