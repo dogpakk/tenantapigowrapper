@@ -20,7 +20,7 @@ const (
 
 type Client struct {
 	APIDomain string
-	APISecret string
+	APIKey    string
 }
 
 func (c Client) getEndpoint(rest string) string {
@@ -53,7 +53,7 @@ func (c Client) GetEntityList(listEntity APIListEntity, listState ListSpec) erro
 	}
 
 	req.Header.Set("Content-Type", "application/json")
-	req.Header.Set("Authorization", fmt.Sprintf("%s", c.APISecret))
+	req.Header.Set("Authorization", fmt.Sprintf("%s", c.APIKey))
 
 	// Set client timeout
 	client := &http.Client{Timeout: time.Second * 10}
@@ -81,7 +81,7 @@ func (c Client) UpdateEntity(entity APISingleEntity, body []byte) error {
 	}
 
 	req.Header.Set("Content-Type", "application/json")
-	req.Header.Set("Authorization", fmt.Sprintf("Bearer %s", c.APISecret))
+	req.Header.Set("Authorization", fmt.Sprintf("Bearer %s", c.APIKey))
 
 	// Set client timeout
 	client := &http.Client{Timeout: time.Second * 10}
