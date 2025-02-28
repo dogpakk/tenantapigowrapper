@@ -11,7 +11,7 @@ import (
 )
 
 const (
-	APIRootV1 = "scriptapi/v1"
+	APIRootV1 = "pakkapi/v2"
 
 	endpointList   = "get/%s"
 	endpointSingle = "%s/%s"
@@ -53,7 +53,7 @@ func (c Client) GetEntityList(listEntity APIListEntity, listState ListSpec) erro
 	}
 
 	req.Header.Set("Content-Type", "application/json")
-	req.Header.Set("Authorization", fmt.Sprintf("Bearer %s", c.APISecret))
+	req.Header.Set("Authorization", fmt.Sprintf("%s", c.APISecret))
 
 	// Set client timeout
 	client := &http.Client{Timeout: time.Second * 10}
